@@ -11,4 +11,13 @@
             });
         });
     </script>
+    <script type="text/javascript" th:fragment="menuScriptFragment">
+        $(document).ready(function() {
+            $('.Header-menu .menu-item').filter(function(){
+                var page = $(this).children('a').attr('href').replaceAll("/", "");
+                var url = document.URL.split('/')[3]
+                return (page === url);
+            }).addClass('menu-item_ACTIVE');
+        });
+    </script>
 </header>
