@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+<!--    <changeSet author="HomePC (generated)" id="1612355432542-1">-->
+<!--        <createSequence sequenceName="authors_id_seq"/>-->
+<!--    </changeSet>-->
+<!--    <changeSet author="HomePC (generated)" id="1612355432542-2">-->
+<!--        <createSequence sequenceName="books_id_seq"/>-->
+<!--    </changeSet>-->
+<!--    <changeSet author="HomePC (generated)" id="1612355432542-3">-->
+<!--        <createSequence sequenceName="genres_id_seq"/>-->
+<!--    </changeSet>-->
+    <changeSet author="HomePC (generated)" id="1612355432542-4">
+        <createTable tableName="authors">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="authors_pkey"/>
+            </column>
+            <column name="first_name" type="VARCHAR(255)"/>
+            <column name="last_name" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="HomePC (generated)" id="1612355432542-5">
+        <createTable tableName="book2genre">
+            <column name="genre_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="book_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="HomePC (generated)" id="1612355432542-6">
+        <createTable tableName="books">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="books_pkey"/>
+            </column>
+            <column name="price" type="VARCHAR(255)"/>
+            <column name="price_old" type="VARCHAR(255)"/>
+            <column name="title" type="VARCHAR(255)"/>
+            <column name="author_id" type="INT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="HomePC (generated)" id="1612355432542-7">
+        <createTable tableName="genres">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="genres_pkey"/>
+            </column>
+            <column name="name_en_locale" type="VARCHAR(255)"/>
+            <column name="name_ru_locale" type="VARCHAR(255)"/>
+            <column name="parent_id" type="INT"/>
+            <column name="slug" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="HomePC (generated)" id="1612355432542-8">
+        <addForeignKeyConstraint baseColumnNames="book_id" baseTableName="book2genre" constraintName="fkceqa97sssb6d5xg7n8jtt5gqb" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="books"/>
+    </changeSet>
+    <changeSet author="HomePC (generated)" id="1612355432542-9">
+        <addForeignKeyConstraint baseColumnNames="author_id" baseTableName="books" constraintName="fkfjixh2vym2cvfj3ufxj91jem7" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="authors"/>
+    </changeSet>
+    <changeSet author="HomePC (generated)" id="1612355432542-10">
+        <addForeignKeyConstraint baseColumnNames="genre_id" baseTableName="book2genre" constraintName="fknb5tbib0eo6i1qhmy62b78b3o" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="genres"/>
+    </changeSet>
+</databaseChangeLog>
