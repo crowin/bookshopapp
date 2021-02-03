@@ -1,32 +1,28 @@
 package com.example.bookshopapp.controllers;
 
-import com.example.bookshopapp.data.Author;
-import com.example.bookshopapp.data.AuthorService;
+import com.example.bookshopapp.data.GenreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.List;
-import java.util.Map;
+import java.util.Optional;
 
 @Controller
 public class GenresController {
 
-    private final AuthorService authorService;
+    private GenreService genreService;
 
     @Autowired
-    public GenresController(AuthorService authorService) {
-        this.authorService = authorService;
-    }
-
-    @ModelAttribute("authorsMap")
-    public Map<String,List<Author>> authorsMap(){
-        return authorService.getAuthorsMap();
+    public GenresController(GenreService genreService) {
+        this.genreService = genreService;
     }
 
     @GetMapping("/genres")
-    public String authorsPage(){
+    public String authorsPage(Model model, @RequestParam(required = false) Optional<String> lang){
+        String currentLocale = !lang.isPresent() || lang.get().isEmpty() ? "en" : lang.get();
+        model.addAttribute("genresMap", genreService.getBooksCountByGenres(currentLocale));
         return "/genres/index";
     }
 }
