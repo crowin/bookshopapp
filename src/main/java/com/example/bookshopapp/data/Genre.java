@@ -1,12 +1,13 @@
 package com.example.bookshopapp.data;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
 
-@Entity @Table(name = "genres") @Getter @Setter
+@Entity @Table(name = "genres") @Getter @Setter @EqualsAndHashCode
 public class Genre {
 
     @Id
@@ -24,4 +25,11 @@ public class Genre {
     )
     @OrderBy()
     private List<Book> books;
+
+    @Transient
+    private List<Genre> children;
+    @Transient
+    private String currentName;
+    @Transient
+    private Integer totalBooksCount;
 }

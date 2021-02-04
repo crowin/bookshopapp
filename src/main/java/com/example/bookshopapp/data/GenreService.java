@@ -18,27 +18,31 @@ public class GenreService {
         this.genreRepository = genreRepository;
     }
 
-    public ListMultimap<String, GenreDto> getBooksCountByGenres(String locale) {
-        ListMultimap<String, GenreDto> genresMap = ArrayListMultimap.create();
-        Map<Integer, String> tempParentsMap = new HashMap<>();
+    public List<Genre> getBooksCountByGenres(String locale) {
+        List<Genre> genresList = genreRepository.findAll();
+        List<Genre> copiedList = new ArrayList<>(genresList);
 
-        //parent genre will be at the top of list
-        List<Genre> genreListDao = genreRepository.findAll().stream()
-                .sorted(Comparator.comparing(g -> g.getParentId() != null))
-                .collect(Collectors.toList());
+        for (Genre cGenre : copiedList) {
+            int booksCount = 0;
+            for(Genre genre: genresList) {
+                if (genre.getCurrentName() == null) {
+                    genre.setCurrentName(locale.equalsIgnoreCase("en") ? genre.getNameEnLocale() : genre.getNameRuLocale());
+                }
 
-        for(Genre genre: genreListDao) {
-            String name = locale.equalsIgnoreCase("en") ? genre.getNameEnLocale() : genre.getNameRuLocale();
-            if (genre.getParentId() == null) {
-                tempParentsMap.put(genre.getId(), genre.getSlug());
-            } else {
-                GenreDto dto = new GenreDto().setId(genre.getId()).setName(name).setSlug(genre.getSlug())
-                        .setCount(genre.getBooks().size());
-                genresMap.put(tempParentsMap.get(genre.getParentId()), dto);
+                if (genre.getParentId() != null && genre.getParentId().equals(cGenre.getId())) {
+                    booksCount += genre.getBooks().size();
+                    if (cGenre.getChildren() == null) {
+                        cGenre.setChildren(new ArrayList<>());
+                    }
+                    genre.setTotalBooksCount(genre.getBooks().size());
+                    cGenre.getChildren().add(genre);
+                    cGenre.setTotalBooksCount(booksCount);
+                }
             }
         }
+        copiedList.removeIf(elem -> elem.getParentId() != null);
 
-        return genresMap;
+        return copiedList;
     }
 
     /*

@@ -22,7 +22,7 @@ public class GenresController {
     @GetMapping("/genres")
     public String authorsPage(Model model, @RequestParam(required = false) Optional<String> lang){
         String currentLocale = !lang.isPresent() || lang.get().isEmpty() ? "en" : lang.get();
-        model.addAttribute("genresMap", genreService.getBooksCountByGenres(currentLocale));
+        model.addAttribute("genresList", genreService.getBooksCountByGenres(currentLocale));
         return "/genres/index";
     }
 }

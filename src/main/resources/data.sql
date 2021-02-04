@@ -48,12 +48,13 @@ insert into genres (id, parent_id, slug, name_en_locale, name_ru_locale) values 
 insert into genres (id, parent_id, slug, name_en_locale, name_ru_locale) values (3, 2, 'comedy', 'Comedy', 'Комедия');
 insert into genres (id, parent_id, slug, name_en_locale, name_ru_locale) values (4, 2, 'detective', 'Detective', 'Детектив');
 insert into genres (id, parent_id, slug, name_en_locale, name_ru_locale) values (5, 2, 'drama', 'Drama', 'Драма');
-insert into genres (id, parent_id, slug, name_en_locale, name_ru_locale) values (6, 2, 'horror', 'Horror', 'Ужасы');
+insert into genres (id, parent_id, slug, name_en_locale, name_ru_locale) values (6, 12, 'horror', 'Horror', 'Ужасы');
 insert into genres (id, parent_id, slug, name_en_locale, name_ru_locale) values (7, 2, 'history', 'History', 'Историческая');
 insert into genres (id, parent_id, slug, name_en_locale, name_ru_locale) values (8, 2, 'scifi', 'Sci-fi', 'Научная фантастика');
 insert into genres (id, parent_id, slug, name_en_locale, name_ru_locale) values (9, 2, 'romance', 'Romance', 'Роман');
-insert into genres (id, parent_id, slug, name_en_locale, name_ru_locale) values (10, 2, 'thriller', 'Thriller', 'Триллер');
+insert into genres (id, parent_id, slug, name_en_locale, name_ru_locale) values (10, 12, 'thriller', 'Thriller', 'Триллер');
 insert into genres (id, parent_id, slug, name_en_locale, name_ru_locale) values (11, 1, 'computer', 'Computer science', 'Компьютерные технологии');
+insert into genres (id, parent_id, slug, name_en_locale, name_ru_locale) values (12, 2, 'adult', 'Adult books', 'Книги для взрослых');
 
 insert  into book2genre (book_id, genre_id) values (1, 10);
 insert  into book2genre (book_id, genre_id) values (1, 8);
@@ -76,7 +77,7 @@ insert  into book2genre (book_id, genre_id) values (14, 4);
 insert  into book2genre (book_id, genre_id) values (14, 8);
 insert  into book2genre (book_id, genre_id) values (15, 6);
 insert  into book2genre (book_id, genre_id) values (16, 4);
-insert  into book2genre (book_id, genre_id) values (17, 7);
+insert  into book2genre (book_id, genre_id) values (17, 9);
 insert  into book2genre (book_id, genre_id) values (18, 7);
 insert  into book2genre (book_id, genre_id) values (19, 5);
 insert  into book2genre (book_id, genre_id) values (20, 7);
