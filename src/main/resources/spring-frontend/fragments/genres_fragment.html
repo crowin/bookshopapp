@@ -13,21 +13,21 @@
 
 
         <th:block th:each="child : ${genre.getChildren()}">
-            <div class="Tag"><a th:href="@{|/genres/${genre.slug}|}" th:text="${child.currentName}" th:if="${child.getChildren() == null}"></a>
+            <div class="Tag"><a th:href="@{|/genres/${child.slug}|}" th:text="${child.currentName}" th:if="${child.getChildren() == null}"></a>
                 <span class="undefined-amount" th:text="${child.totalBooksCount}" th:if="${child.getChildren() == null}"></span>
             </div>
 
             <div class="Tags" th:if="${child.getChildren() != null}">
                 <div class="Tags-title">
                     <div class="Tag">
-                        <a th:href="@{|/genres/${genre.slug}|}"  th:text="${child.currentName}"></a>
+                        <a th:href="@{|/genres/${child.slug}|}"  th:text="${child.currentName}"></a>
                         <span class="undefined-amount" th:text="${child.totalBooksCount}"></span>
                     </div>
                 </div>
 
                 <div class="Tag" th:each="subChild : ${child.getChildren()}">
                     <th:block>
-                        <a th:href="@{|/genres/${genre.slug}|}" th:text="${subChild.currentName}"></a>
+                        <a th:href="@{|/genres/${subChild.slug}|}" th:text="${subChild.currentName}"></a>
                         <span class="undefined-amount" th:text="${subChild.totalBooksCount}"></span>
                     </th:block>
                 </div>

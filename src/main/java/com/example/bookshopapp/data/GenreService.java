@@ -4,6 +4,9 @@ import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.ListMultimap;
 import com.google.common.collect.Multimap;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -45,11 +48,11 @@ public class GenreService {
         return copiedList;
     }
 
-    /*
-    parent
-    name,id
+    public Genre getGenreWithBooksList(String slugName) {
+        return genreRepository.findGenreBySlugEquals(slugName);
+    }
 
-    child
-    name, id
-     */
+    public Genre getGenreById(Integer id) {
+        return genreRepository.findById(id).get();
+    }
 }
