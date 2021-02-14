@@ -25,17 +25,17 @@ public class MainPageController {
 
     @ModelAttribute("recommendedBooks")
     public List<Book> recommendedBooks() {
-        return bookService.getPageOfRecommendedBooks(0, 6).getContent();
+        return bookService.getPageOfRecommendedBooks(0, 20).getContent();
     }
 
     @ModelAttribute("recentlyBooks")
     public List<Book> recentlyBooks() {
-        return bookService.getPageOfRecentBooks(0, 6).getContent();
+        return bookService.getPageOfRecentBooks(0, 20).getContent();
     }
 
     @ModelAttribute("popularBooks")
     public List<Book> popularBooks() {
-        return bookService.getBestsellers(0, 6).getContent();
+        return bookService.getBestsellers(0, 20).getContent();
     }
 
     @ModelAttribute("searchWordDto")
@@ -58,7 +58,7 @@ public class MainPageController {
                                    Model model) {
         model.addAttribute("searchWordDto", searchWordDto);
         model.addAttribute("searchResults",
-                bookService.getPageOfSearchResultBooks(searchWordDto.getExample(), 0, 6).getContent());
+                bookService.getPageOfSearchResultBooks(searchWordDto.getExample(), 0, 20).getContent());
         return "/search/index";
     }
 }

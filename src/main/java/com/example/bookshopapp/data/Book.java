@@ -56,4 +56,7 @@ public class Book {
     )
     @JsonIgnore
     private List<Genre> genres;
+
+    @OneToMany(mappedBy = "book")
+    private List<Review> reviews;
 }

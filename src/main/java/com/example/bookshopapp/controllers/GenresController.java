@@ -48,7 +48,7 @@ public class GenresController {
 
         PagedListHolder<Book> page = new PagedListHolder<>(genre.getBooks());
         page.setPage(0);
-        page.setPageSize(10);
+        page.setPageSize(20);
 
         model.addAttribute("genre", new GenreDto(genre.getId(), name, genre.getBooks().size(), page.getPageList(), parentName));
         return "genres/slug";

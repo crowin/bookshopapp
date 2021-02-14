@@ -65,14 +65,14 @@
               <div class="Card-content">
                 <strong class="Card-title"><a href="#" th:text="${book.title}"></a>
                 </strong>
-                <div class="Card-description" th:text="${book.author}">
+                <div class="Card-description" th:text="${authorObj.lastName + ' ' + authorObj.firstName}">
                 </div>
                 <div class="Card-cost"><span class="Card-priceOld" th:text="${book.priceOld}"></span><span class="Card-price" th:text="${book.price}"></span>
                 </div>
               </div>
             </div>
 
-            <div class="Cards-footer Cards-footer_center"><a class="btn btn_primary" href="#" data-refreshshow="author" data-refreshoffset="0" data-refreshlimit="10" th:data-refreshid="${authorObj.id}">Показать еще</a>
+            <div class="Cards-footer Cards-footer_center"><a class="btn btn_primary" href="#" data-refreshshow="author" data-refreshoffset="0" th:data-refreshlimit="${authorObj.getBookList().size()}" th:data-refreshid="${authorObj.id}">Показать еще</a>
             </div>
           </div>
         </div>

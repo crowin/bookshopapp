@@ -41,4 +41,19 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
     Page<Book> findBooksByPubDateBetween(Date startedDate, Date finishedDate, Pageable nextPage);
 
     Page<Book> findBooksByAuthorIdEquals(Integer authorId, Pageable nextPage);
+
+    Integer countBookByAuthorIdEquals(Integer authorId);
+
+/*
+SELECT b, SUM(COALESCE(r.score::double precision, 0))/COUNT(COALESCE(r.score::double precision, 0)) AS rate, b.pub_date FROM books as b
+LEFT JOIN book_review as r ON b.id = r.book_id
+GROUP BY b.id
+ORDER BY rate DESC, b.pub_date DESC
+
+ */
+    @Query(value = "SELECT b, SUM(COALESCE(r.score::double precision, 0))/COUNT(COALESCE(r.score::double precision, 0)) AS rate, b.pub_date FROM books as b\n" +
+            "LEFT JOIN book_review as r ON b.id = r.book_id\n" +
+            "GROUP BY b.id\n" +
+            "ORDER BY rate DESC, b.pub_date DESC", nativeQuery = true)
+    Page<Book> getPageOfPopularBooks(Pageable nextPage);
 }

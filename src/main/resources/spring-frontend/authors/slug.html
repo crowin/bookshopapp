@@ -104,7 +104,7 @@
           </header>
           <div class="Slider Slider_carousel" th:insert="~{fragments/books_slider_fragment :: book_slider(${authorObj.bookList})}">
           </div>
-          <footer class="Section-footer"><a class="Author-books" th:href="@{|/books/author/${authorObj.id}|}">Все книги автора<span class="Author-amount" th:text="'(' + ${authorObj.getBookList().size()} + ')'">(55)</span></a>
+          <footer class="Section-footer"><a class="Author-books" th:href="@{|/books/author/${authorObj.id}|}">Все книги автора<span class="Author-amount" th:text="'(' + ${authorTotalBooks} + ')'">(55)</span></a>
           </footer>
         </div>
       </main>

@@ -80,4 +80,13 @@ public class BookService {
     public Book getBookById(Integer id) {
         return bookRepository.findBookByIdEquals(id);
     }
+
+    public Integer getTotalBooksByAuthorId(Integer authorId) {
+        return bookRepository.countBookByAuthorIdEquals(authorId);
+    }
+
+    public Page<Book> getPageOfPopularBooks(Integer offset, Integer limit) {
+        Pageable nextPage = PageRequest.of(offset, limit);
+        return bookRepository.getPageOfPopularBooks(nextPage);
+    }
 }

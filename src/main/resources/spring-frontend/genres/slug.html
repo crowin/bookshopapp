@@ -75,7 +75,7 @@
                 </div>
               </div>
             </div>
-            <div class="Cards-footer Cards-footer_center"><a class="btn btn_primary" href="#" data-refreshshow="genre" data-refreshoffset="0" data-refreshlimit="5" th:data-refreshid="${genre.id}">Показать еще</a>
+            <div class="Cards-footer Cards-footer_center"><a class="btn btn_primary" href="#" data-refreshshow="genre" data-refreshoffset="0" th:data-refreshlimit="${genre.books.size()}" th:data-refreshid="${genre.id}">Показать еще</a>
             </div>
           </div>
         </div>

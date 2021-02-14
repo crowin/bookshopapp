@@ -25,7 +25,7 @@ public class RecentController {
     public List<Book> recentBooks() {
         Date defaultStartedTime = java.sql.Date.valueOf(LocalDate.now().minusMonths(1));
         Date defaultFinishedTime = new Date();
-        return bookService.getPageOfRecentBooksByDates(defaultStartedTime, defaultFinishedTime, 0, 10)
+        return bookService.getPageOfRecentBooksByDates(defaultStartedTime, defaultFinishedTime, 0, 20)
                 .getContent();
     }
 

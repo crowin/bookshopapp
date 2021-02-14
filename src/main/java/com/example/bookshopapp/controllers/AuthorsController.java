@@ -31,13 +31,9 @@ public class AuthorsController {
         this.booksService = booksService;
     }
 
-    @ModelAttribute("authorsMap")
-    public Map<String,List<Author>> authorsMap(){
-        return authorService.getAuthorsMap();
-    }
-
     @GetMapping("/authors")
-    public String authorsPage(){
+    public String authorsPage(Model model){
+        model.addAttribute("authorsMap", authorService.getAuthorsMap());
         return "/authors/index";
     }
 
@@ -46,7 +42,9 @@ public class AuthorsController {
 
         model.addAttribute("authorObj",
                 authorService.getAuthorById(authorId)
-                        .setBookList(booksService.getPageOfBooksByAuthorId(authorId, 0, 10).getContent()));
+                        .setBookList(booksService.getPageOfBooksByAuthorId(authorId, 0, 5).getContent()));
+        model.addAttribute("authorTotalBooks", booksService.getTotalBooksByAuthorId(authorId));
+
         return "authors/slug";
     }
 
@@ -55,7 +53,7 @@ public class AuthorsController {
 
         model.addAttribute("authorObj",
                 authorService.getAuthorById(authorId)
-                        .setBookList(booksService.getPageOfBooksByAuthorId(authorId, 0, 10).getContent()));
+                        .setBookList(booksService.getPageOfBooksByAuthorId(authorId, 0, 20).getContent()));
         return "books/author";
     }
 
