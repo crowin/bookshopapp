@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.hateoas.RepresentationModel;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -17,7 +18,7 @@ import java.util.List;
 @Table(name = "books")
 @ApiModel(description = "entity representing a book")
 @Getter @Setter
-public class Book {
+public class Book extends RepresentationModel<Book> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

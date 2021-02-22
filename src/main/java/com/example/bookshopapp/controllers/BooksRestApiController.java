@@ -8,6 +8,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.Link;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MissingServletRequestParameterException;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 @RestController
 @RequestMapping("/api")
@@ -31,7 +34,12 @@ public class BooksRestApiController {
     @GetMapping("/books/by-author")
     @ApiOperation("operation to get book list of bookshop by passed author first name")
     public ResponseEntity<List<Book>> booksByAuthor(@RequestParam("author") String authorName) {
-        return ResponseEntity.ok(bookService.getBooksByAuthor(authorName));
+        List<Book> data = bookService.getBooksByAuthor(authorName);
+        for (Book book: data) {
+            Link link = linkTo(AuthorsRestApiController.class).slash(book.getAuthor().getId()).withRel("author");
+            book.add(link);
+        }
+        return ResponseEntity.ok(data);
     }
 
     @GetMapping("/books/by-title")
@@ -48,6 +56,7 @@ public class BooksRestApiController {
         response.setStatus(HttpStatus.OK);
         response.setTimeStamp(LocalDateTime.now());
         response.setData(data);
+
         return ResponseEntity.ok(response);
     }
 

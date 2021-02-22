@@ -11,7 +11,7 @@ import java.util.List;
 @Entity
 @Table(name = "authors")
 @ApiModel(description = "data model of author enrity")
-public class Author {
+public class Author{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

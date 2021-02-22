@@ -1,5 +1,6 @@
 package com.example.bookshopapp.data;
 
+import com.example.bookshopapp.errs.BookstoreApiWrongParameterException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -13,10 +14,12 @@ import java.util.stream.Collectors;
 public class AuthorService {
 
     private JdbcTemplate jdbcTemplate;
+    private AuthorRepository authorRepository;
 
     @Autowired
-    public AuthorService(JdbcTemplate jdbcTemplate) {
+    public AuthorService(JdbcTemplate jdbcTemplate, AuthorRepository authorRepository) {
         this.jdbcTemplate = jdbcTemplate;
+        this.authorRepository = authorRepository;
     }
 
     public Map<String, List<Author>> getAuthorsMap() {
@@ -29,5 +32,10 @@ public class AuthorService {
         });
 
         return authors.stream().collect(Collectors.groupingBy((Author a) -> {return a.getLastName().substring(0,1);}));
+    }
+
+    public Author getAuthorById(Integer authorId) throws BookstoreApiWrongParameterException {
+        if (authorId == null) throw new BookstoreApiWrongParameterException("Empty author id");
+        return authorRepository.findById(authorId).orElse(null);
     }
 }
