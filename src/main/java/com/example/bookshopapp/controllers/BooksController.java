@@ -1,28 +1,69 @@
 package com.example.bookshopapp.controllers;
 
-
-import com.example.bookshopapp.data.BookService;
-import com.example.bookshopapp.data.SearchWordDto;
+import com.example.bookshopapp.data.Book;
+import com.example.bookshopapp.data.BookRepository;
+import com.example.bookshopapp.data.ResourceStorage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.logging.Logger;
 
 @Controller
+@RequestMapping("/books")
 public class BooksController {
 
-    private BookService bookService;
+    private final BookRepository bookRepository;
+    private final ResourceStorage storage;
 
     @Autowired
-    public BooksController(BookService bookService) {
-        this.bookService = bookService;
+    public BooksController(BookRepository bookRepository, ResourceStorage storage) {
+        this.bookRepository = bookRepository;
+        this.storage = storage;
     }
 
-    @GetMapping("/books/{book_id}")
-    public String getSearchResults(@PathVariable("book_id") Integer bookId,
-                                   Model model) {
-        model.addAttribute("book", bookService.getBookById(bookId));
+    @GetMapping("/{slug}")
+    public String bookPage(@PathVariable("slug") String slug, Model model) {
+        Book book = bookRepository.findBookBySlug(slug);
+        model.addAttribute("slugBook", book);
         return "/books/slug";
+    }
+
+    @PostMapping("/{slug}/img/save")
+    public String saveNewBoookImage(@RequestParam("file") MultipartFile file, @PathVariable("slug") String slug) throws IOException {
+
+        String savePath = storage.saveNewBookImage(file, slug);
+        Book bookToUpdate = bookRepository.findBookBySlug(slug);
+        bookToUpdate.setImage(savePath);
+        bookRepository.save(bookToUpdate); //save new path in db here
+
+        return ("redirect:/books/" + slug);
+    }
+
+    @GetMapping("/download/{hash}")
+    public ResponseEntity<ByteArrayResource> bookFile(@PathVariable("hash") String hash) throws IOException {
+
+        Path path = storage.getBookFilePath(hash);
+        Logger.getLogger(this.getClass().getSimpleName()).info("book file path: " + path);
+
+        MediaType mediaType = storage.getBookFileMime(hash);
+        Logger.getLogger(this.getClass().getSimpleName()).info("book file mime type: " + mediaType);
+
+        byte[] data = storage.getBookFileByteArray(hash);
+        Logger.getLogger(this.getClass().getSimpleName()).info("book file data len: " + data.length);
+
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=" + path.getFileName().toString())
+                .contentType(mediaType)
+                .contentLength(data.length)
+                .body(new ByteArrayResource(data));
     }
 }

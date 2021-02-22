@@ -1,15 +1,13 @@
 package com.example.bookshopapp.data;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
 
-@Entity @Table(name = "genres") @Getter @Setter @EqualsAndHashCode
+@Entity @Table(name = "genres") @Getter @Setter
 public class Genre {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

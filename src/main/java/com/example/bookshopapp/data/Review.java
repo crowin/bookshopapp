@@ -1,6 +1,5 @@
 package com.example.bookshopapp.data;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,17 +10,16 @@ import java.util.Date;
 @Table(name = "book_review")
 @Getter @Setter
 public class Review {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    //private Integer book_id;
+    private Integer book_id;
     private Integer user_id;
     private Date time;
     private String text;
     private Integer score;
 
     @ManyToOne
-    @JoinColumn(name = "book_id")
+    @JoinColumn(name = "book_id", referencedColumnName = "id", insertable = false, updatable = false)
     private Book book;
 }

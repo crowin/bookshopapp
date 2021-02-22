@@ -2789,3 +2789,8 @@ insert into book_review (id, book_id, user_id, time, text, score) values (497, 4
 insert into book_review (id, book_id, user_id, time, text, score) values (498, 497, 498, '2020-04-28 21:52:32', 'Duis mattis egestas metus.', 2);
 insert into book_review (id, book_id, user_id, time, text, score) values (499, 499, 499, '2020-07-20 11:52:43', 'Aenean auctor gravida sem. Praesent id massa id nisl venenatis lacinia.', 4);
 insert into book_review (id, book_id, user_id, time, text, score) values (500, 499, 500, '2020-10-03 20:43:56', 'Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.', 2);
+
+insert into book_file (id, hash, type_id, path, book_id) values (1 , 'fsdl342ladads76432', 1, '/book-anu-384.pdf', 1);
+insert into book_file (id, hash, type_id, path, book_id) values (2 , 'asdl35436dads34235', 2, '/book-anu-384.epub', 1);
+insert into book_file (id, hash, type_id, path, book_id) values (3 , 'qwer342lafdss34123', 3, '/book-anu-384.fb2', 1);
+insert into book_file (id, hash, type_id, path, book_id) values (4 , 'hgfd342la543h34123', 1, '/book-uyd-473.pdf', 2);

@@ -1,8 +1,5 @@
 package com.example.bookshopapp.data;
 
-import lombok.Data;
-
-@Data
 public class SearchWordDto {
 
     private String example;
@@ -11,5 +8,13 @@ public class SearchWordDto {
         this.example = example;
     }
 
-    public SearchWordDto() { }
+    public SearchWordDto(){}
+
+    public String getExample() {
+        return example;
+    }
+
+    public void setExample(String example) {
+        this.example = example;
+    }
 }

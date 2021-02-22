@@ -1,5 +1,6 @@
 package com.example.bookshopapp.config;
 
+import io.swagger.annotations.Api;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.PathSelectors;
@@ -18,20 +19,20 @@ public class SpringfoxConfig {
     public Docket docket() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.example.bookshopapp.controllers"))
+                .apis(RequestHandlerSelectors.withClassAnnotation(Api.class))
                 .paths(PathSelectors.any())
                 .build()
                 .apiInfo(apiInfo());
     }
 
-    public ApiInfo apiInfo() {
+    public ApiInfo apiInfo(){
         return new ApiInfo(
                 "Bookshop API",
                 "API for bookstore",
                 "1.0",
-                "http://www.termsservice.org",
-                new Contact("API owner", "http://www.ownersite.com", "owmner@rmailer.org"),
-                "api_licence" ,
+                "http://www.termsofservice.org",
+                new Contact("API owner","http://www.ownersite.com","owner@rmailer.org"),
+                "api_license",
                 "http://www.license.edu.org",
                 new ArrayList<>()
         );
