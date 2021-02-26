@@ -10,6 +10,8 @@
 <html class="ie9" lang="ru">
 <![endif]-->
 <!--[if gt IE 9]><!--> <html lang="ru"> <!--<![endif]-->
+<html lang="ru" xmlns:th="http://www.thymeleaf.org"> <!--<![endif]-->
+
 <head>
   <title>Тут название страницы написать</title>
   <meta name="description" content="Описание страницы">
@@ -100,20 +102,27 @@
           </li>
           <li class="breadcrumbs-item"><a href="/genres/index.html">Книги</a>
           </li>
-          <li class="breadcrumbs-item breadcrumbs-item_current"><span>Мара и морок</span>
+          <li class="breadcrumbs-item breadcrumbs-item_current" th:text="${slugBook.title}"><span>Мара и морок</span>
           </li>
         </ul>
         <div class="Product">
           <div class="ProductCard">
             <div class="ProductCard-look">
-              <div class="ProductCard-photo"><img src="/assets/img/content/main/card.jpg" alt="card.jpg"/>
-              </div>
+              <form id="imgForm" method="POST" enctype="multipart/form-data" action="#"
+                    th:action="${'/books/'+slugBook.slug+'/img/save'}">
+                <div class="ProductCard-photo" id="uploadButton"><img th:src="${slugBook.image}"
+                                                                      src="/assets/img/content/main/card.jpg"
+                                                                      alt="card.jpg"/>
+                </div>
+                <input type="file" name="file" id="dialog" style="display: none" accept="image/*">
+              </form>
             </div>
             <div class="ProductCard-desc">
               <div class="ProductCard-header">
-                <h1 class="ProductCard-title">Мара и морок
+                <h1 class="ProductCard-title" th:text="${slugBook.title}">Мара и морок
                 </h1>
-                <div class="ProductCard-author"><span class="ProductCard-titleProp">Автор:</span>&#32;<a href="#">Лия Арден</a>
+                <div class="ProductCard-author"><span class="ProductCard-titleProp">Автор:</span>&#32;<a
+                        href="#" th:text="${slugBook.author.toString()}">Лия Арден</a>
                 </div>
                 <div class="ProductCard-rating"><span class="ProductCard-titleProp">Рейтинг:</span>
                   <button class="trigger trigger_dropdown" type="button">
@@ -383,7 +392,7 @@
                 </div>
                 <div class="ProductCard-tags"><span class="ProductCard-titleProp">Тэги:</span><a href="/tags/">Современные</a>,&#32;<a href="/tags/">Психологическая проза</a>
                 </div>
-                <div class="ProductCard-cost"><span class="ProductCard-titleProp">Цена:</span><span class="ProductCard-priceOld">₽300</span><span class="ProductCard-price">₽180</span>
+                <div class="ProductCard-cost"><span class="ProductCard-titleProp">Цена:</span><span class="ProductCard-priceOld" th:text="${slugBook.priceOld}">₽300</span><span class="ProductCard-price" th:text="${slugBook.discountPrice()}">₽180</span>
                 </div>
                 <!--+div.-info
                 //+div.-cost
@@ -395,18 +404,18 @@
                 -->
               </div>
               <div class="ProductCard-text">
-                <p>Таких, как я, называют Марами - отмеченными самой богиней смерти Мораной. Когда-то у меня и моих шести сестер был свой путь. Тогда люди нас уважали и просили о милосердии. Они приносили нам подношения и молились нам. Но 200 лет назад все изменилось, когда принц Серата осмелился поднять руку на одну из нас. Я пыталась отомстить, но погибли мы все. Теперь правители Аракена, погрязшие в длительной войне со своим соседом Сератом, решили вернуть меня к жизни. Дать второй шанс на месть и свободу, привязав меня к тому, против кого я никогда не пойду. Таких, как он, называют Морок, и их боятся абсолютно все.
+                <p th:text="${slugBook.description}">Таких, как я, называют Марами - отмеченными самой богиней смерти Мораной. Когда-то у меня и моих шести сестер был свой путь. Тогда люди нас уважали и просили о милосердии. Они приносили нам подношения и молились нам. Но 200 лет назад все изменилось, когда принц Серата осмелился поднять руку на одну из нас. Я пыталась отомстить, но погибли мы все. Теперь правители Аракена, погрязшие в длительной войне со своим соседом Сератом, решили вернуть меня к жизни. Дать второй шанс на месть и свободу, привязав меня к тому, против кого я никогда не пойду. Таких, как он, называют Морок, и их боятся абсолютно все.
                 </p>
               </div>
               <div class="ProductCard-cart">
                 <!--+div.-cartElement.-cartElement_amount-->
                 <!--    +Amount._product-->
                 <div class="ProductCard-cartElement">
-                  <button class="btn btn_primary btn_outline" data-sendstatus="KEPT" data-bookid="[1111]" data-btntype="check" data-btnradio="buyblock" data-check="false" data-alttext="Отложена"><span class="btn-icon"><img src="/assets/img/icons/heart.svg" alt="heart.svg"/></span><span class="btn-content">Отложить</span>
+                  <button class="btn btn_primary btn_outline" data-sendstatus="KEPT" th:attr="data-bookid = ${slugBook.slug + '-postponed'}" data-bookid="[1111]" data-btntype="check" data-btnradio="buyblock" data-check="false" data-alttext="Отложена"><span class="btn-icon"><img src="/assets/img/icons/heart.svg" alt="heart.svg"/></span><span class="btn-content">Отложить</span>
                   </button>
                 </div>
                 <div class="ProductCard-cartElement">
-                  <button class="btn btn_primary btn_outline" data-sendstatus="CART" data-bookid="[1111]" data-btntype="check" data-btnradio="buyblock" data-check="false" data-alttext="В корзине"><span class="btn-icon"><img src="/assets/img/icons/shopping-basket.svg" alt="shopping-basket.svg"/></span><span class="btn-content">Купить</span>
+                  <button class="btn btn_primary btn_outline" th:attr="data-bookid = ${slugBook.slug}" data-sendstatus="CART" data-bookid="[1111]" data-btntype="check" data-btnradio="buyblock" data-check="false" data-alttext="В корзине"><span class="btn-icon"><img src="/assets/img/icons/shopping-basket.svg" alt="shopping-basket.svg"/></span><span class="btn-content">Купить</span>
                   </button>
                 </div>
               </div>
@@ -420,6 +429,16 @@
                   </button>
                 </div>
               </div>
+
+              <div id="myPopup">
+                <p>Ссылки для скачивания</p>
+                <div th:each="bookFile : ${slugBook.getBookFileList()}">
+                  <a href="#" th:href="${'/books/download/' + bookFile.hash}"
+                     th:text="${bookFile.getBookFileExtensionString()}"></a>
+                </div>
+                <span id="myPopup__close" class="close">❎</span>
+              </div>
+              <div id="myOverlay"></div>
               <!--+div.-cart-->
               <!--    //+div.-cartElement.-cartElement_amount-->
               <!--    //    +Amount._product-->
@@ -465,14 +484,14 @@
                           <path fill="#ffc000" d="M9.5 14.925L3.629 18l1.121-6.512L0 6.875l6.564-.95L9.5 0l2.936 5.925 6.564.95-4.75 4.613L15.371 18z"></path>
                         </g>
                       </g>
-                    </svg></span></span><span class="Rating-title">567 отзывов</span></span>
+                    </svg></span></span><span class="Rating-title" th:text="${slugBook.reviews.size() + ' отзывов'}">567 отзывов</span></span>
             </div>
           </div>
           <div class="Comments">
             <strong class="Comments-title">Написать отзыв
             </strong>
             <div class="Comments-addComment">
-              <form class="form" action="#" method="post" data-bookid="1111">
+              <form class="form" action="#" method="post" th:data-bookid="${slugBook.id}">
                 <div class="form-group">
                   <textarea class="form-textarea Comments-review" name="review" id="review" placeholder="Текст отзыва" data-validate="require"></textarea>
                 </div>
@@ -482,7 +501,7 @@
                 </div>
               </form>
             </div>
-            <div class="Comment">
+            <div class="Comment" th:each="review : ${slugBook.reviews}">
               <div class="Comment-column Comment-column_pict">
                 <div class="Comment-avatar">
                 </div>
@@ -490,53 +509,67 @@
               <div class="Comment-column">
                 <header class="Comment-header">
                   <div>
-                    <strong class="Comment-title">Александр Кузнецов<span class="Comment-rating"><span class="Rating Rating_comment"><span class="Rating-stars"><span class="Rating-star Rating-star_view">
+                    <strong class="Comment-title" th:text="${review.user.name}"><span class="Comment-rating"><span
+                            class="Rating Rating_comment"><span class="Rating-stars"><span
+                            class="Rating-star Rating-star_view">
                               <svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" viewBox="0 0 19 18">
                                 <g>
                                   <g>
-                                    <path fill="#ffc000" d="M9.5 14.925L3.629 18l1.121-6.512L0 6.875l6.564-.95L9.5 0l2.936 5.925 6.564.95-4.75 4.613L15.371 18z"></path>
+                                    <path fill="#ffc000"
+                                          d="M9.5 14.925L3.629 18l1.121-6.512L0 6.875l6.564-.95L9.5 0l2.936 5.925 6.564.95-4.75 4.613L15.371 18z"></path>
                                   </g>
                                 </g>
                               </svg></span><span class="Rating-star Rating-star_view">
                               <svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" viewBox="0 0 19 18">
                                 <g>
                                   <g>
-                                    <path fill="#ffc000" d="M9.5 14.925L3.629 18l1.121-6.512L0 6.875l6.564-.95L9.5 0l2.936 5.925 6.564.95-4.75 4.613L15.371 18z"></path>
+                                    <path fill="#ffc000"
+                                          d="M9.5 14.925L3.629 18l1.121-6.512L0 6.875l6.564-.95L9.5 0l2.936 5.925 6.564.95-4.75 4.613L15.371 18z"></path>
                                   </g>
                                 </g>
                               </svg></span><span class="Rating-star">
                               <svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" viewBox="0 0 19 18">
                                 <g>
                                   <g>
-                                    <path fill="#ffc000" d="M9.5 14.925L3.629 18l1.121-6.512L0 6.875l6.564-.95L9.5 0l2.936 5.925 6.564.95-4.75 4.613L15.371 18z"></path>
+                                    <path fill="#ffc000"
+                                          d="M9.5 14.925L3.629 18l1.121-6.512L0 6.875l6.564-.95L9.5 0l2.936 5.925 6.564.95-4.75 4.613L15.371 18z"></path>
                                   </g>
                                 </g>
                               </svg></span><span class="Rating-star">
                               <svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" viewBox="0 0 19 18">
                                 <g>
                                   <g>
-                                    <path fill="#ffc000" d="M9.5 14.925L3.629 18l1.121-6.512L0 6.875l6.564-.95L9.5 0l2.936 5.925 6.564.95-4.75 4.613L15.371 18z"></path>
+                                    <path fill="#ffc000"
+                                          d="M9.5 14.925L3.629 18l1.121-6.512L0 6.875l6.564-.95L9.5 0l2.936 5.925 6.564.95-4.75 4.613L15.371 18z"></path>
                                   </g>
                                 </g>
                               </svg></span><span class="Rating-star">
                               <svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" viewBox="0 0 19 18">
                                 <g>
                                   <g>
-                                    <path fill="#ffc000" d="M9.5 14.925L3.629 18l1.121-6.512L0 6.875l6.564-.95L9.5 0l2.936 5.925 6.564.95-4.75 4.613L15.371 18z"></path>
+                                    <path fill="#ffc000"
+                                          d="M9.5 14.925L3.629 18l1.121-6.512L0 6.875l6.564-.95L9.5 0l2.936 5.925 6.564.95-4.75 4.613L15.371 18z"></path>
                                   </g>
                                 </g>
                               </svg></span></span></span></span>
-                    </strong><span class="Comment-date">17.04.2020 16:40</span>
+                    </strong><span class="Comment-date" th:text="${review.getFormattedTime()}"></span>
                   </div>
                 </header>
                 <div class="Comment-content">
-                  <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit doli. Aenean commodo ligula eget dolor. Aenean massa. Cumtipsu sociis natoque penatibus et magnis dis parturient montesti, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eutu, pretiumem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justotuio, rhoncus ut loret, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus element semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae.
+                  <p th:text="${review.text}">
                   </p>
                   <div class="Comment-footer">
                     <div class="Comment-appeal">
-                      <button class="btn btn_white btn_like" data-btntype="check" data-check="false" data-btnradio="two2" data-likeid="1111"><span class="btn-icon"><img src="/assets/img/icons/comment/like.svg" alt="like.svg"/></span><span class="btn-content">200</span>
+                      <button class="btn btn_white btn_like" data-btntype="check" data-check="false"
+                              data-btnradio="two2" data-likeid="1111"><span class="btn-icon"><img
+                              src="/assets/img/icons/comment/like.svg" alt="like.svg"/></span><span
+                              class="btn-content" th:text="${review.getLikesSum()}">200</span>
                       </button>
-                      <button class="btn btn_white btn_dislike" data-btntype="check" data-check="false" data-btnradio="two2" data-likeid="1111"><span class="btn-icon"><img src="/assets/img/icons/comment/dislike.svg" alt="dislike.svg"/></span><span class="btn-content">100</span>
+                      <button class="btn btn_white btn_dislike" data-btntype="check"
+                              data-check="false" data-btnradio="two2" data-likeid="1111"><span
+                              class="btn-icon"><img src="/assets/img/icons/comment/dislike.svg"
+                                                    alt="dislike.svg"/></span><span
+                              class="btn-content" th:text="${review.getDislikesSum()}">100</span>
                       </button>
                     </div>
                   </div>

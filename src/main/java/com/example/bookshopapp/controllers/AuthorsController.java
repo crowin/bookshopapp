@@ -2,6 +2,7 @@ package com.example.bookshopapp.controllers;
 
 import com.example.bookshopapp.data.Author;
 import com.example.bookshopapp.data.AuthorService;
+import com.example.bookshopapp.data.SearchWordDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,12 @@ public class AuthorsController {
     public Map<String,List<Author>> authorsMap(){
         return authorService.getAuthorsMap();
     }
+
+    @ModelAttribute("searchWordDto")
+    public SearchWordDto searchWordDto() {
+        return new SearchWordDto();
+    }
+
 
     @GetMapping("/authors")
     public String authorsPage(){

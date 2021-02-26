@@ -1,8 +1,6 @@
 package com.example.bookshopapp.controllers;
 
-import com.example.bookshopapp.data.ApiResponse;
-import com.example.bookshopapp.data.Book;
-import com.example.bookshopapp.data.BookService;
+import com.example.bookshopapp.data.*;
 import com.example.bookshopapp.errs.BookstoreApiWrongParameterException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -10,12 +8,16 @@ import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Link;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
@@ -25,10 +27,13 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 public class BooksRestApiController {
 
     private final BookService bookService;
+    private final ReviewRepository reviewRepository;
+
 
     @Autowired
-    public BooksRestApiController(BookService bookService) {
+    public BooksRestApiController(BookService bookService, ReviewRepository reviewRepository) {
         this.bookService = bookService;
+        this.reviewRepository = reviewRepository;
     }
 
     @GetMapping("/books/by-author")
@@ -89,6 +94,24 @@ public class BooksRestApiController {
     public ResponseEntity<ApiResponse<Book>> handleBookstoreApiWrongParameterException(Exception exception) {
         return new ResponseEntity<>(new ApiResponse<Book>(HttpStatus.BAD_REQUEST, "Bad parameter value...", exception)
                 , HttpStatus.BAD_REQUEST);
+    }
+
+    @PostMapping(value = "/books/bookReview", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public String postReview(HttpServletRequest request) {
+        String[] reviewText = request.getParameterMap().get("text");
+        Book book = bookService.getById(Integer.valueOf(request.getParameterMap().get("bookId")[0]));
+
+        if (reviewText.length != 0) {
+            User mockUser = reviewRepository.findAll().get(0).getUser();
+            Review review = new Review();
+            review.setBook(book);
+            review.setUser(mockUser);
+            review.setText(reviewText[0]);
+            review.setTime(new Date());
+            reviewRepository.saveAndFlush(review);
+        }
+
+        return ("redirect:/books/" + "book.getSlug()");
     }
 
 }

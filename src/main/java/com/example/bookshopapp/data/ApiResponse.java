@@ -1,11 +1,14 @@
 package com.example.bookshopapp.data;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import org.springframework.http.HttpStatus;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
 
+@Builder @AllArgsConstructor
 public class ApiResponse<T> {
     private HttpStatus status;
 

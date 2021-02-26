@@ -5,6 +5,7 @@ import com.example.bookshopapp.data.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
@@ -81,6 +82,11 @@ public class BaseBookshopCartController {
 
         return "redirect:/books/" + slug.replace(postponedPostfix, "");
     }
+
+//    @PostMapping("/changeBookStatus")
+//    public String handleRateBookStatus(@RequestBody Map<String, String> formData) {
+//        bookRepository.
+//    }
 
     private void prepareChangeStatusRequest(String slug, String currentCookie, HttpServletResponse response, Model model, String attribute, String contentType) {
         if (currentCookie == null || currentCookie.equals("")) {

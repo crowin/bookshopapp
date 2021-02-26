@@ -1,8 +1,6 @@
 package com.example.bookshopapp.controllers;
 
-import com.example.bookshopapp.data.Book;
-import com.example.bookshopapp.data.BookRepository;
-import com.example.bookshopapp.data.ResourceStorage;
+import com.example.bookshopapp.data.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpHeaders;
@@ -13,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.logging.Logger;
@@ -30,15 +29,17 @@ public class BooksController {
         this.storage = storage;
     }
 
-    @GetMapping("/{slug}")
-    public String bookPage(@PathVariable("slug") String slug, Model model) {
+    @GetMapping(value = {"/{slug}", "/my/{slug}"})
+    public String bookPage(@PathVariable("slug") String slug, HttpServletRequest request, Model model) {
+        boolean isAuthorizedBook = request.getRequestURI().contains("/my/");
+
         Book book = bookRepository.findBookBySlug(slug);
         model.addAttribute("slugBook", book);
-        return "/books/slug";
+        return isAuthorizedBook? "/books/slugmy" : "/books/slug";
     }
 
     @PostMapping("/{slug}/img/save")
-    public String saveNewBoookImage(@RequestParam("file") MultipartFile file, @PathVariable("slug") String slug) throws IOException {
+    public String saveNewBookImage(@RequestParam("file") MultipartFile file, @PathVariable("slug") String slug) throws IOException {
 
         String savePath = storage.saveNewBookImage(file, slug);
         Book bookToUpdate = bookRepository.findBookBySlug(slug);

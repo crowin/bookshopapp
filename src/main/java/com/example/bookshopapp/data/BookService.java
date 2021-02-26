@@ -71,4 +71,12 @@ public class BookService {
         return books.getContent().stream()
                 .sorted(Comparator.comparingDouble(Book::rating).reversed()).collect(Collectors.toList());
     }
+
+    public Book getBookBySlug(String slug) {
+        return bookRepository.findBookBySlug(slug);
+    }
+
+    public Book getById(Integer bookId) {
+        return bookRepository.findById(bookId).get();
+    }
 }

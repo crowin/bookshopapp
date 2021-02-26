@@ -85,6 +85,7 @@ public class Book extends RepresentationModel<Book> {
     private List<Genre> genres;
 
     @OneToMany(mappedBy = "book")
+    @OrderBy(value = "time DESC")
     private List<Review> reviews;
 
     @JsonProperty

@@ -477,14 +477,13 @@ p.error-browser
                           </g>
                         </svg></span>
                       <input name="rating" type="radio" value="5"/></span></span>
-                            </div>
+                    </div>
                             <div class="ProductCard-tags"><span class="ProductCard-titleProp">Тэги:</span><a
                                     href="/tags/">Современные</a>,&#32;<a href="/tags/">Психологическая проза</a>
                             </div>
-                            <div class="ProductCard-cost"><span class="ProductCard-titleProp"
-                                                                th:text="${slugBook.priceOld}">Цена:
+                            <div class="ProductCard-cost"><span class="ProductCard-titleProp">Цена:
                             </span><span
-                                    class="ProductCard-priceOld">₽300</span><span class="ProductCard-price"
+                                    class="ProductCard-priceOld" th:text="${slugBook.priceOld}">₽300</span><span class="ProductCard-price"
                                                                                   th:text="${slugBook.discountPrice()}">₽180</span>
                             </div>
                             <!--+div.-info
@@ -569,11 +568,11 @@ p.error-browser
                 <div class="Product-comments">
                     <div class="Product-comments-header">
                         <h3 class="Product-comments-title">Отзывы
-                        </h3><span class="Product-comments-amount">567 отзывов</span>
+                        </h3><span class="Product-comments-amount" th:text="${slugBook.reviews.size() + ' отзывов'}"></span>
                     </div>
                 </div>
                 <div class="Comments">
-                    <div class="Comment">
+                    <div class="Comment" th:each="review : ${slugBook.reviews}">
                         <div class="Comment-column Comment-column_pict">
                             <div class="Comment-avatar">
                             </div>
@@ -581,7 +580,7 @@ p.error-browser
                         <div class="Comment-column">
                             <header class="Comment-header">
                                 <div>
-                                    <strong class="Comment-title">Александр Кузнецов<span class="Comment-rating"><span
+                                    <strong class="Comment-title" th:text="${review.user.name}"><span class="Comment-rating"><span
                                             class="Rating Rating_comment"><span class="Rating-stars"><span
                                             class="Rating-star Rating-star_view">
                               <svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" viewBox="0 0 19 18">
@@ -624,31 +623,24 @@ p.error-browser
                                   </g>
                                 </g>
                               </svg></span></span></span></span>
-                                    </strong><span class="Comment-date">17.04.2020 16:40</span>
+                                    </strong><span class="Comment-date" th:text="${review.getFormattedTime()}"></span>
                                 </div>
                             </header>
                             <div class="Comment-content">
-                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit doli. Aenean commodo ligula
-                                    eget dolor. Aenean massa. Cumtipsu sociis natoque penatibus et magnis dis parturient
-                                    montesti, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque
-                                    eutu, pretiumem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel,
-                                    aliquet nec, vulputate eget, arcu. In enim justotuio, rhoncus ut loret, imperdiet a,
-                                    venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer
-                                    tincidunt. Cras dapibus. Vivamus element semper nisi. Aenean vulputate eleifend
-                                    tellus. Aenean leo ligula, porttitor eu, consequat vitae.
+                                <p th:text="${review.text}">
                                 </p>
                                 <div class="Comment-footer">
                                     <div class="Comment-appeal">
                                         <button class="btn btn_white btn_like" data-btntype="check" data-check="false"
                                                 data-btnradio="two2" data-likeid="1111"><span class="btn-icon"><img
                                                 src="/assets/img/icons/comment/like.svg" alt="like.svg"/></span><span
-                                                class="btn-content">200</span>
+                                                class="btn-content" th:text="${review.getLikesSum()}">200</span>
                                         </button>
                                         <button class="btn btn_white btn_dislike" data-btntype="check"
                                                 data-check="false" data-btnradio="two2" data-likeid="1111"><span
                                                 class="btn-icon"><img src="/assets/img/icons/comment/dislike.svg"
                                                                       alt="dislike.svg"/></span><span
-                                                class="btn-content">100</span>
+                                                class="btn-content" th:text="${review.getDislikesSum()}">100</span>
                                         </button>
                                     </div>
                                 </div>
@@ -759,6 +751,8 @@ p.error-browser
         </main>
     </div>
 </div>
+
+
 <footer class="Footer">
     <div class="wrap">
         <div class="row Footer-main">
