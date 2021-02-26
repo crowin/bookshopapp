@@ -1,9 +1,6 @@
 package com.example.bookshopapp.controllers;
 
-import com.example.bookshopapp.data.ApiResponse;
-import com.example.bookshopapp.data.Author;
-import com.example.bookshopapp.data.AuthorService;
-import com.example.bookshopapp.data.Book;
+import com.example.bookshopapp.data.*;
 import com.example.bookshopapp.errs.BookstoreApiWrongParameterException;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

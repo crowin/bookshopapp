@@ -16,6 +16,7 @@ public class AuthorService {
     private JdbcTemplate jdbcTemplate;
     private AuthorRepository authorRepository;
 
+
     @Autowired
     public AuthorService(JdbcTemplate jdbcTemplate, AuthorRepository authorRepository) {
         this.jdbcTemplate = jdbcTemplate;
@@ -38,4 +39,5 @@ public class AuthorService {
         if (authorId == null) throw new BookstoreApiWrongParameterException("Empty author id");
         return authorRepository.findById(authorId).orElse(null);
     }
+
 }
