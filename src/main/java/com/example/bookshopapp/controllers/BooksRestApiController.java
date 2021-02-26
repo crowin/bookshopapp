@@ -97,7 +97,7 @@ public class BooksRestApiController {
     }
 
     @PostMapping(value = "/books/bookReview", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public String postReview(HttpServletRequest request) {
+    public ResponseEntity<ApiResponse> postReview(HttpServletRequest request) {
         String[] reviewText = request.getParameterMap().get("text");
         Book book = bookService.getById(Integer.valueOf(request.getParameterMap().get("bookId")[0]));
 
@@ -111,7 +111,7 @@ public class BooksRestApiController {
             reviewRepository.saveAndFlush(review);
         }
 
-        return ("redirect:/books/" + "book.getSlug()");
+        return ResponseEntity.ok(ApiResponse.builder().status(HttpStatus.OK).timeStamp(LocalDateTime.now()).build());
     }
 
 }
