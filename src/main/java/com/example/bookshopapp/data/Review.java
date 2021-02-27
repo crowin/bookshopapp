@@ -22,11 +22,11 @@ public class Review {
     private Integer score;
 
     @ManyToOne
-    @JoinColumn(name = "book_id", referencedColumnName = "id", insertable = false, updatable = false)
+    @JoinColumn(name = "book_id", referencedColumnName = "id")
     private Book book;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id", insertable = false, updatable = false)
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
     @OneToMany(mappedBy="review")

@@ -3799,3 +3799,5 @@ insert into book_file (id, hash, type_id, path, book_id) values (1 , 'fsdl342lad
 insert into book_file (id, hash, type_id, path, book_id) values (2 , 'asdl35436dads34235', 2, '/book-anu-384.epub', 1);
 insert into book_file (id, hash, type_id, path, book_id) values (3 , 'qwer342lafdss34123', 3, '/book-anu-384.fb2', 1);
 insert into book_file (id, hash, type_id, path, book_id) values (4 , 'hgfd342la543h34123', 1, '/book-uyd-473.pdf', 2);
+
+SELECT SETVAL('book_review_id_seq', (SELECT MAX(id) + 1 FROM book_review));
