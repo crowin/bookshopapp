@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -99,7 +100,7 @@ public class BooksRestApiController {
     }
 
     @PostMapping(value = "/books/bookReview", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public ResponseEntity<ApiResponse> postReview(HttpServletRequest request) {
+    public ResponseEntity<Map<String, Object>> postReview(HttpServletRequest request) {
         String[] reviewText = request.getParameterMap().get("text");
         Book book = bookService.getById(Integer.valueOf(request.getParameterMap().get("bookId")[0]));
 
@@ -113,8 +114,10 @@ public class BooksRestApiController {
             review.setTime(new Date());
             reviewRepository.saveAndFlush(review);
         }
-
-        return ResponseEntity.ok(ApiResponse.builder().status(HttpStatus.OK).timeStamp(LocalDateTime.now()).build());
+        Map<String,Object> map = new HashMap<>();
+        map.put("result", true);
+        map.put("error", null);
+        return ResponseEntity.ok(map);
     }
 
 }
