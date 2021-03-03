@@ -18,6 +18,9 @@ public class User {
     private String hash;
     private Date regTime;
     private String name;
+    private String email;
+    private String phone;
+    private String password;
 
     @OneToMany(mappedBy = "user")
     private List<Review> reviews;
