@@ -27,7 +27,7 @@ public class Review {
 
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private User user;
+    private BookStoreUser bookStoreUser;
 
     @OneToMany(mappedBy="review")
     private List<BookReviewLike> likes;

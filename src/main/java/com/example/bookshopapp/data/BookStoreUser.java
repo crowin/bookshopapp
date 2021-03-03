@@ -10,7 +10,7 @@ import java.util.List;
 @Entity
 @Table(name = "users")
 @Getter @Setter
-public class User {
+public class BookStoreUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -22,6 +22,6 @@ public class User {
     private String phone;
     private String password;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "bookStoreUser")
     private List<Review> reviews;
 }

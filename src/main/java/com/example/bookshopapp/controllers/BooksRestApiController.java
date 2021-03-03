@@ -29,14 +29,14 @@ public class BooksRestApiController {
 
     private final BookService bookService;
     private final ReviewRepository reviewRepository;
-    private final UserRepository userRepository;
+    private final BookStoreUserRepository bookStoreUserRepository;
 
 
     @Autowired
-    public BooksRestApiController(BookService bookService, ReviewRepository reviewRepository, UserRepository userRepository) {
+    public BooksRestApiController(BookService bookService, ReviewRepository reviewRepository, BookStoreUserRepository bookStoreUserRepository) {
         this.bookService = bookService;
         this.reviewRepository = reviewRepository;
-        this.userRepository = userRepository;
+        this.bookStoreUserRepository = bookStoreUserRepository;
     }
 
     @GetMapping("/books/by-author")
@@ -106,10 +106,10 @@ public class BooksRestApiController {
 
         if (reviewText.length != 0) {
 
-            User mockUser = userRepository.findAll().get(0);
+            BookStoreUser mockBookStoreUser = bookStoreUserRepository.findAll().get(0);
             Review review = new Review();
             review.setBook(book);
-            review.setUser(mockUser);
+            review.setBookStoreUser(mockBookStoreUser);
             review.setText(reviewText[0]);
             review.setTime(new Date());
             reviewRepository.saveAndFlush(review);

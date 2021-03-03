@@ -18,7 +18,7 @@ public class BookReviewLike {
     private Review review;
     @OneToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private User user;
+    private BookStoreUser bookStoreUser;
     private Date time;
     private Integer value;
 }

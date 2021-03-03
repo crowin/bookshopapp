@@ -1,6 +1,6 @@
 package com.example.bookshopapp.security;
 
-import com.example.bookshopapp.data.User;
+import com.example.bookshopapp.data.BookStoreUser;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -9,10 +9,10 @@ import java.util.Arrays;
 import java.util.Collection;
 
 public class BookStoreUserDetails implements UserDetails {
-    private final User user;
+    private final BookStoreUser bookStoreUser;
 
-    public BookStoreUserDetails(User user) {
-        this.user = user;
+    public BookStoreUserDetails(BookStoreUser bookStoreUser) {
+        this.bookStoreUser = bookStoreUser;
     }
 
     @Override
@@ -22,12 +22,12 @@ public class BookStoreUserDetails implements UserDetails {
 
     @Override
     public String getPassword() {
-        return user.getPassword();
+        return bookStoreUser.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return user.getEmail();
+        return bookStoreUser.getEmail();
     }
 
     @Override
