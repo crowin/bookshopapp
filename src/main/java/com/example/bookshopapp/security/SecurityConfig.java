@@ -56,7 +56,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().formLogin()
                 .loginPage("/signin").failureUrl("/signin")
                 .and().logout().logoutUrl("/logout").logoutSuccessUrl("/signin").deleteCookies("token").addLogoutHandler(logoutTokenListHandler)
-                .and().oauth2Login()
+                .and().oauth2Login().defaultSuccessUrl("/my")
                 .and().oauth2Client();
 
         //http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);

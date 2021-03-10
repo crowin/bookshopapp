@@ -94,7 +94,7 @@ public class AuthUserController {
     }
 
     @GetMapping("/profile")
-    public String handleProfile(Model model){
+    public String handleProfile(Model model) throws BadUserAuthorization {
         model.addAttribute("curUsr", userRegister.getCurrentUser());
         return "profile";
     }
