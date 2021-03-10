@@ -1,5 +1,6 @@
 package com.example.bookshopapp.data;
 
+import com.example.bookshopapp.security.BookstoreUser;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -27,7 +28,7 @@ public class Review {
 
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private BookStoreUser bookStoreUser;
+    private BookstoreUser bookStoreUser;
 
     @OneToMany(mappedBy="review")
     private List<BookReviewLike> likes;

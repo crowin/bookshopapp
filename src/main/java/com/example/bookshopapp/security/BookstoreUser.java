@@ -1,5 +1,6 @@
-package com.example.bookshopapp.data;
+package com.example.bookshopapp.security;
 
+import com.example.bookshopapp.data.Review;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,7 +11,7 @@ import java.util.List;
 @Entity
 @Table(name = "users")
 @Getter @Setter
-public class BookStoreUser {
+public class BookstoreUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -24,4 +25,8 @@ public class BookStoreUser {
 
     @OneToMany(mappedBy = "bookStoreUser")
     private List<Review> reviews;
+
+
+    @OneToOne(mappedBy = "user")
+    private TokenDao token;
 }

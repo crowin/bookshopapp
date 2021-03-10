@@ -35,6 +35,7 @@ public class BooksController {
 
         Book book = bookRepository.findBookBySlug(slug);
         model.addAttribute("slugBook", book);
+        model.addAttribute("slugAttr", book.getSlug());
         return isAuthorizedBook? "/books/slugmy" : "/books/slug";
     }
 

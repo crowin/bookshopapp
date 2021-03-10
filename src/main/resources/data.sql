@@ -500,7 +500,7 @@ insert into users (id, hash, reg_time, balance, name) values (497, 'a54xkcohrxoz
 insert into users (id, hash, reg_time, balance, name) values (498, 'onqmb7913wusjjed', '2004-03-21 00:40:20', 3262, 'ravramovskydt');
 insert into users (id, hash, reg_time, balance, name) values (499, '7bmk2jxi9zu9al8j', '2011-12-18 12:31:38', 1928, 'frozanskidu');
 insert into users (id, hash, reg_time, balance, name) values (500, 'rdpxrtbo5ojeqh22', '2011-08-07 20:37:35', 686, 'mdybalddv');
-
+insert into users (id, password, reg_time, balance, name, email, phone) values (501, '$2a$10$XzUOyS3Y0uv5sjONtKgxG.UzElJyHwUlwuQFd5PusRnN7od6YM3oy', '2012-01-25 12:26:43', 120, 'Alexander', 'valliwow@yandex.ru', '+7 (981) 847-47-52');
 
 insert into authors (id, first_name, last_name) values (1, 'Kylen', 'Powers');
 insert into authors (id, first_name, last_name) values (2, 'Sauncho', 'Mowling');
@@ -3801,3 +3801,4 @@ insert into book_file (id, hash, type_id, path, book_id) values (3 , 'qwer342laf
 insert into book_file (id, hash, type_id, path, book_id) values (4 , 'hgfd342la543h34123', 1, '/book-uyd-473.pdf', 2);
 
 SELECT SETVAL('book_review_id_seq', (SELECT MAX(id) + 1 FROM book_review));
+SELECT SETVAL('users_id_seq', (SELECT MAX(id) + 1 FROM users));

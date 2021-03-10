@@ -2,6 +2,8 @@ package com.example.bookshopapp.controllers;
 
 import com.example.bookshopapp.data.*;
 import com.example.bookshopapp.errs.BookstoreApiWrongParameterException;
+import com.example.bookshopapp.security.BookstoreUser;
+import com.example.bookshopapp.security.BookstoreUserRepository;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponses;
@@ -29,11 +31,11 @@ public class BooksRestApiController {
 
     private final BookService bookService;
     private final ReviewRepository reviewRepository;
-    private final BookStoreUserRepository bookStoreUserRepository;
+    private final BookstoreUserRepository bookStoreUserRepository;
 
 
     @Autowired
-    public BooksRestApiController(BookService bookService, ReviewRepository reviewRepository, BookStoreUserRepository bookStoreUserRepository) {
+    public BooksRestApiController(BookService bookService, ReviewRepository reviewRepository, BookstoreUserRepository bookStoreUserRepository) {
         this.bookService = bookService;
         this.reviewRepository = reviewRepository;
         this.bookStoreUserRepository = bookStoreUserRepository;
@@ -106,10 +108,10 @@ public class BooksRestApiController {
 
         if (reviewText.length != 0) {
 
-            BookStoreUser mockBookStoreUser = bookStoreUserRepository.findAll().get(0);
+            BookstoreUser mockBookstoreUser = bookStoreUserRepository.findAll().get(0);
             Review review = new Review();
             review.setBook(book);
-            review.setBookStoreUser(mockBookStoreUser);
+            review.setBookStoreUser(mockBookstoreUser);
             review.setText(reviewText[0]);
             review.setTime(new Date());
             reviewRepository.saveAndFlush(review);

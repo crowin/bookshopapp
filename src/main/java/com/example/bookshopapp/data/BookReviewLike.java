@@ -1,5 +1,6 @@
 package com.example.bookshopapp.data;
 
+import com.example.bookshopapp.security.BookstoreUser;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,7 +19,7 @@ public class BookReviewLike {
     private Review review;
     @OneToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private BookStoreUser bookStoreUser;
+    private BookstoreUser bookStoreUser;
     private Date time;
     private Integer value;
 }
