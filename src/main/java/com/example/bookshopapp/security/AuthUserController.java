@@ -28,13 +28,13 @@ public class AuthUserController {
         this.jwtUtil = jwtUtil;
     }
 
-    @GetMapping("/signin")
-    public String handleSignIn(){
+    @GetMapping(value = "/signin")
+    public String handleSignIn() {
         return "signin";
     }
 
     @GetMapping("/signup")
-    public String handleSignUp(Model model){
+    public String handleSignUp(Model model) {
         model.addAttribute("regForm", new RegistrationForm());
         return "signup";
     }

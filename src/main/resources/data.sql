@@ -2791,7 +2791,6 @@ insert into book2genre (book_id, genre_id) values (248, 10);
 insert into book2genre (book_id, genre_id) values (249, 10);
 insert into book2genre (book_id, genre_id) values (250, 11);
 
-
 insert into book_review (id, book_id, user_id, time, text, score) values (1, 1, 1, '2020-08-16 13:29:48', 'Maecenas tincidunt lacus at velit.', 3);
 insert into book_review (id, book_id, user_id, time, text, score) values (2, 1, 2, '2020-05-31 06:02:44', 'Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus. Suspendisse potenti.', 4);
 insert into book_review (id, book_id, user_id, time, text, score) values (3, 3, 3, '2020-06-30 06:22:18', 'Nunc nisl. Duis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa.', 1);
@@ -3292,6 +3291,9 @@ insert into book_review (id, book_id, user_id, time, text, score) values (497, 4
 insert into book_review (id, book_id, user_id, time, text, score) values (498, 497, 498, '2020-04-28 21:52:32', 'Duis mattis egestas metus.', 2);
 insert into book_review (id, book_id, user_id, time, text, score) values (499, 499, 499, '2020-07-20 11:52:43', 'Aenean auctor gravida sem. Praesent id massa id nisl venenatis lacinia.', 4);
 insert into book_review (id, book_id, user_id, time, text, score) values (500, 499, 500, '2020-10-03 20:43:56', 'Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.', 2);
+insert into book_review (id, book_id, user_id, time, text, score) values (501, 379, 1, '2020-08-16 13:29:48', 'Maecenas tincidunt lacus at velit.', 5);
+insert into book_review (id, book_id, user_id, time, text, score) values (502, 511, 1, '2020-08-16 13:29:48', 'Maecenas tincidunt lacus at velit.', 5);
+
 
 insert into book_review_like (id, review_id, user_id, time, value) values (1, 1, 1, '2020-09-19 15:19:19', 1);
 insert into book_review_like (id, review_id, user_id, time, value) values (2, 1, 2, '2020-07-21 05:15:40', -1);

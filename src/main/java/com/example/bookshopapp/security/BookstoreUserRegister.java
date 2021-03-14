@@ -9,25 +9,24 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
-import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 public class BookstoreUserRegister {
 
     private final BookstoreUserRepository bookstoreUserRepository;
+    private final NetworkAuthRepository networkAuthRepository;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
     private final BookstoreUserDetailsService bookstoreUserDetailsService;
     private final JWTUtil jwtUtil;
 
     @Autowired
-    public BookstoreUserRegister(BookstoreUserRepository bookstoreUserRepository, PasswordEncoder passwordEncoder,
+    public BookstoreUserRegister(BookstoreUserRepository bookstoreUserRepository, NetworkAuthRepository networkAuthRepository, PasswordEncoder passwordEncoder,
                                  AuthenticationManager authenticationManager,
                                  BookstoreUserDetailsService bookstoreUserDetailsService, JWTUtil jwtUtil) {
         this.bookstoreUserRepository = bookstoreUserRepository;
+        this.networkAuthRepository = networkAuthRepository;
         this.passwordEncoder = passwordEncoder;
         this.authenticationManager = authenticationManager;
         this.bookstoreUserDetailsService = bookstoreUserDetailsService;
@@ -71,22 +70,30 @@ public class BookstoreUserRegister {
         if (SecurityContextHolder.getContext().getAuthentication() instanceof OAuth2AuthenticationToken) {
             OAuth2AuthenticationToken currentAuth = (OAuth2AuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
             BookstoreUser daoUser;
+            NetworkAuth networkAuth;
 
             switch (currentAuth.getAuthorizedClientRegistrationId()) {
                 case "facebook":
-                    daoUser = bookstoreUserRepository.findBookstoreUserByEmail(currentAuth.getPrincipal().getAttributes().get("email").toString()).orElse(null);
+                    networkAuth = networkAuthRepository.findNetworkAuthByNetworkId(currentAuth.getPrincipal().getAttributes().get("id").toString());
+                    //daoUser = bookstoreUserRepository.findBookstoreUserByEmail(currentAuth.getPrincipal().getAttributes().get("email").toString()).orElse(null);
                     break;
                 default: throw new BadUserAuthorization("Something wrong happened during user search");
             }
 
-            if (daoUser == null) {
+            if (networkAuth == null) {
                 daoUser = new BookstoreUser();
                 daoUser.setEmail(currentAuth.getPrincipal().getAttributes().get("email").toString());
                 daoUser.setName(currentAuth.getPrincipal().getAttributes().get("name").toString());
-                bookstoreUserRepository.save(daoUser);
-            }
+                daoUser = bookstoreUserRepository.saveAndFlush(daoUser);
 
-            return daoUser;
+                networkAuth = new NetworkAuth();
+                networkAuth.setNetworkId(currentAuth.getPrincipal().getAttributes().get("id").toString());
+                networkAuth.setNetworkName(currentAuth.getAuthorizedClientRegistrationId());
+                networkAuth.setUser(daoUser);
+                networkAuthRepository.save(networkAuth);
+
+                return daoUser;
+            } else return networkAuth.getUser();
         } else {
             BookstoreUserDetails userDetails =
                     (BookstoreUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();

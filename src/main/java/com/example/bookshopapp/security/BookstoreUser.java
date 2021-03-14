@@ -29,4 +29,7 @@ public class BookstoreUser {
 
     @OneToOne(mappedBy = "user")
     private TokenDao token;
+
+    @OneToOne(mappedBy = "user")
+    private NetworkAuth networkAuth;
 }
