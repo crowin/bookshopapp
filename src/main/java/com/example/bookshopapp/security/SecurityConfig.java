@@ -52,10 +52,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
+                .antMatchers("/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/**").authenticated()
                 .antMatchers(HttpMethod.PUT, "/**").authenticated()
                 .antMatchers("/my", "/profile").authenticated()//.hasRole("USER")
-                .antMatchers("/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/searchResults").permitAll()
                 .antMatchers(HttpMethod.PUT, "/searchResults").permitAll()
                 .and().formLogin()
