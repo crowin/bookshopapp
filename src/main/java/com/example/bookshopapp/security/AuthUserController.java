@@ -2,6 +2,7 @@ package com.example.bookshopapp.security;
 
 import com.example.bookshopapp.errs.BadUserAuthorization;
 import com.example.bookshopapp.security.jwt.JWTUtil;
+import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 @Controller
 public class AuthUserController {
@@ -100,7 +102,7 @@ public class AuthUserController {
     }
 
     @ExceptionHandler(value = {BadUserAuthorization.class, BadCredentialsException.class})
-    public ResponseEntity<ContactConfirmationResponse> handleBadCredentialsByJWT(Exception exception) {
+    public ResponseEntity<ContactConfirmationResponse> handleBadCredentialsByJWT(Exception exception, HttpServletResponse response) throws IOException {
         ContactConfirmationResponse resp = new ContactConfirmationResponse();
         resp.setError("Invalid contact or password. " + exception.getMessage());
         return ResponseEntity.ok(resp);

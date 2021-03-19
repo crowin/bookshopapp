@@ -33,16 +33,18 @@ public class BookstoreUserRegister {
         this.jwtUtil = jwtUtil;
     }
 
-    public void registerNewUser(RegistrationForm registrationForm) {
+    public BookstoreUser registerNewUser(RegistrationForm registrationForm) {
+        BookstoreUser user = null;
 
         if (!bookstoreUserRepository.findBookstoreUserByEmail(registrationForm.getEmail()).isPresent()) {
-            BookstoreUser user = new BookstoreUser();
+            user = new BookstoreUser();
             user.setName(registrationForm.getName());
             user.setEmail(registrationForm.getEmail());
             user.setPhone(registrationForm.getPhone());
             user.setPassword(passwordEncoder.encode(registrationForm.getPass()));
             bookstoreUserRepository.save(user);
         }
+        return user;
     }
 
     public ContactConfirmationResponse login(ContactConfirmationPayload payload) {
