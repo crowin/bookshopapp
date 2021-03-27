@@ -1,6 +1,5 @@
 package com.example.bookshopapp.security;
 
-import org.assertj.core.api.Assertions;
 import org.hamcrest.CoreMatchers;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -10,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -58,7 +59,7 @@ class BookstoreUserRegisterTests {
 
     @Test
     void registerNewUserFail(){
-        Mockito.doReturn(new BookstoreUser())
+        Mockito.doReturn(Optional.of(BookstoreUser.class))
                 .when(bookstoreUserRepositoryMock)
                 .findBookstoreUserByEmail(registrationForm.getEmail());
 

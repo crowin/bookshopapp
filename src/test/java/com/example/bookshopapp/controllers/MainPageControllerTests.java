@@ -45,16 +45,17 @@ class MainPageControllerTests {
 
     @Test
     public void correctLoginTest() throws Exception {
-        mockMvc.perform(formLogin("/signin").user("koshaevk@gmail.com").password("1234567"))
+        mockMvc.perform(formLogin("/signin").user("valliwow@yandex.ru").password("1234567"))
                 .andDo(print())
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/"));
+                .andExpect(redirectedUrl("/my"));
     }
 
     @Test
-    @WithUserDetails("koshaevk@gmail.com")
+    @WithUserDetails("valliwow@yandex.ru")
     public void testAuthenticatedAccessToProfilePage() throws Exception{
-        mockMvc.perform(get("/profile"))
+        mockMvc
+                .perform(get("/profile"))
                 .andDo(print())
                 .andExpect(authenticated())
                 .andExpect(xpath("/html/body/header/div[1]/div/div/div[3]/div/a[4]/span[1]")
@@ -63,9 +64,9 @@ class MainPageControllerTests {
 
     @Test
     public void testSearchQuery() throws Exception {
-        mockMvc.perform(get("/search/Sudden"))
+        mockMvc.perform(get("/search/Archangel"))
                 .andDo(print())
                 .andExpect(xpath("/html/body/div/div/main/div[2]/div/div[1]/div[2]/strong/a")
-                .string("Sudden Manhattan"));
+                .string("Archangel"));
     }
 }
