@@ -1,5 +1,6 @@
 package com.example.bookshopapp.security;
 
+import com.example.bookshopapp.repositories.BookstoreUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

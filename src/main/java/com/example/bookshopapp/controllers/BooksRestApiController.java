@@ -2,8 +2,10 @@ package com.example.bookshopapp.controllers;
 
 import com.example.bookshopapp.data.*;
 import com.example.bookshopapp.errs.BookstoreApiWrongParameterException;
+import com.example.bookshopapp.repositories.ReviewRepository;
 import com.example.bookshopapp.security.BookstoreUser;
-import com.example.bookshopapp.security.BookstoreUserRepository;
+import com.example.bookshopapp.repositories.BookstoreUserRepository;
+import com.example.bookshopapp.services.BookService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponses;

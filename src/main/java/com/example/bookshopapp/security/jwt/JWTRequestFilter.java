@@ -2,7 +2,7 @@ package com.example.bookshopapp.security.jwt;
 
 import com.example.bookshopapp.security.BookstoreUserDetails;
 import com.example.bookshopapp.security.BookstoreUserDetailsService;
-import com.example.bookshopapp.security.TokensService;
+import com.example.bookshopapp.services.TokensService;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;

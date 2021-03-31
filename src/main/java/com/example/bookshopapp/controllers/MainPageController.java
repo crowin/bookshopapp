@@ -1,7 +1,7 @@
 package com.example.bookshopapp.controllers;
 
 import com.example.bookshopapp.data.Book;
-import com.example.bookshopapp.data.BookService;
+import com.example.bookshopapp.services.BookService;
 import com.example.bookshopapp.data.BooksPageDto;
 import com.example.bookshopapp.data.SearchWordDto;
 import com.example.bookshopapp.errs.EmptySearchException;

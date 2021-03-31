@@ -1,11 +1,10 @@
 package com.example.bookshopapp.controllers;
 
 import com.example.bookshopapp.data.Book;
-import com.example.bookshopapp.data.BookRepository;
+import com.example.bookshopapp.repositories.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
@@ -35,7 +34,7 @@ public class BaseBookshopCartController {
         this.bookRepository = bookRepository;
     }
 
-    @GetMapping(value = {"/cart", "postponed"})
+    @GetMapping(value = {"/cart", "/postponed"})
     public String handleCartRequest(@CookieValue(value = "cartContents", required = false) String cartContents,
                                     @CookieValue(value = "postponedContents", required = false) String postponedContents,
                                     HttpServletRequest request,

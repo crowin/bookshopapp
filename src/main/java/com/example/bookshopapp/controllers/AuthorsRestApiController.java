@@ -2,6 +2,7 @@ package com.example.bookshopapp.controllers;
 
 import com.example.bookshopapp.data.*;
 import com.example.bookshopapp.errs.BookstoreApiWrongParameterException;
+import com.example.bookshopapp.services.AuthorService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

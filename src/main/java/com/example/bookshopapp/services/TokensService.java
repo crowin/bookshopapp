@@ -1,5 +1,8 @@
-package com.example.bookshopapp.security;
+package com.example.bookshopapp.services;
 
+import com.example.bookshopapp.repositories.TokensRepository;
+import com.example.bookshopapp.security.BookstoreUser;
+import com.example.bookshopapp.security.TokenDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

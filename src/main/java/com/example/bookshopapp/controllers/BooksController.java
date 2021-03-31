@@ -1,6 +1,7 @@
 package com.example.bookshopapp.controllers;
 
 import com.example.bookshopapp.data.*;
+import com.example.bookshopapp.repositories.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpHeaders;

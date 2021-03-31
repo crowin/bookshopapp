@@ -1,5 +1,6 @@
-package com.example.bookshopapp.data;
+package com.example.bookshopapp.repositories;
 
+import com.example.bookshopapp.data.Review;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

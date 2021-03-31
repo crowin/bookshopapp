@@ -1,5 +1,6 @@
-package com.example.bookshopapp.data;
+package com.example.bookshopapp.repositories;
 
+import com.example.bookshopapp.data.Book;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

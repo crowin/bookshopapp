@@ -1,7 +1,7 @@
 package com.example.bookshopapp.controllers;
 
 import com.example.bookshopapp.data.Author;
-import com.example.bookshopapp.data.AuthorService;
+import com.example.bookshopapp.services.AuthorService;
 import com.example.bookshopapp.data.SearchWordDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

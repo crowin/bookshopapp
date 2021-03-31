@@ -1,5 +1,6 @@
 package com.example.bookshopapp.security;
 
+import com.example.bookshopapp.repositories.BookstoreUserRepository;
 import org.hamcrest.CoreMatchers;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

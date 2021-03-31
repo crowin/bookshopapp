@@ -1,5 +1,6 @@
-package com.example.bookshopapp.security;
+package com.example.bookshopapp.repositories;
 
+import com.example.bookshopapp.security.BookstoreUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

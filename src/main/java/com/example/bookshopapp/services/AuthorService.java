@@ -1,5 +1,7 @@
-package com.example.bookshopapp.data;
+package com.example.bookshopapp.services;
 
+import com.example.bookshopapp.data.Author;
+import com.example.bookshopapp.repositories.AuthorRepository;
 import com.example.bookshopapp.errs.BookstoreApiWrongParameterException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;

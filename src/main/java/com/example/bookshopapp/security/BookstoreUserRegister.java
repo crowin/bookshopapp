@@ -1,6 +1,8 @@
 package com.example.bookshopapp.security;
 
 import com.example.bookshopapp.errs.BadUserAuthorization;
+import com.example.bookshopapp.repositories.BookstoreUserRepository;
+import com.example.bookshopapp.repositories.NetworkAuthRepository;
 import com.example.bookshopapp.security.jwt.JWTUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
