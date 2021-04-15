@@ -21,7 +21,7 @@ public class AuthorsRestApiController {
 
     @GetMapping("/{author_id}")
     @ApiOperation("operation to get book list of bookshop by passed author first name")
-    public ResponseEntity<Author> getByAuthorId(@PathVariable(name = "author_id") Integer authorId)
+    public ResponseEntity<Author> getByAuthorId(@PathVariable(name = "author_id") String authorId)
             throws BookstoreApiWrongParameterException {
         Author data = authorService.getAuthorById(authorId);
         return ResponseEntity.ok(data);

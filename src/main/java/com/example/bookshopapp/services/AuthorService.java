@@ -3,6 +3,7 @@ package com.example.bookshopapp.services;
 import com.example.bookshopapp.data.Author;
 import com.example.bookshopapp.repositories.AuthorRepository;
 import com.example.bookshopapp.errs.BookstoreApiWrongParameterException;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -37,9 +38,9 @@ public class AuthorService {
         return authors.stream().collect(Collectors.groupingBy((Author a) -> {return a.getLastName().substring(0,1);}));
     }
 
-    public Author getAuthorById(Integer authorId) throws BookstoreApiWrongParameterException {
-        if (authorId == null) throw new BookstoreApiWrongParameterException("Empty author id");
-        return authorRepository.findById(authorId).orElse(null);
+    public Author getAuthorById(String authorId) throws BookstoreApiWrongParameterException {
+        if (!NumberUtils.isDigits(authorId)) throw new BookstoreApiWrongParameterException("Bad author id");
+        return authorRepository.findById(NumberUtils.toInt(authorId)).orElse(null);
     }
 
 }

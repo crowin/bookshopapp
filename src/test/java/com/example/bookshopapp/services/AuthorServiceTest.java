@@ -35,7 +35,7 @@ class AuthorServiceTest {
 
     @Test
     void getAuthorById() throws BookstoreApiWrongParameterException {
-        Author author = authorService.getAuthorById(1);
+        Author author = authorService.getAuthorById("1");
         Assertions.assertEquals(author.getFirstName() + " " + author.getLastName(), "Kylen Powers");
     }
 }
