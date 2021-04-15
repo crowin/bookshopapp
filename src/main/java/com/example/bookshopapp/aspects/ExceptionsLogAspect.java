@@ -19,6 +19,5 @@ public class ExceptionsLogAspect {
     @AfterThrowing(pointcut = "anyController()", throwing = "ex")
     private void afterControllerException(JoinPoint jp, Exception ex) {
         log.error("Exception in {} controller: {}", jp.getTarget().getClass().getSimpleName(), ex.getMessage());
-
     }
 }

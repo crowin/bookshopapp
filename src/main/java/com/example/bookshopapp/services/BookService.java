@@ -1,5 +1,6 @@
 package com.example.bookshopapp.services;
 
+import com.example.bookshopapp.aspects.annotations.LogCount;
 import com.example.bookshopapp.data.Book;
 import com.example.bookshopapp.repositories.BookRepository;
 import com.example.bookshopapp.errs.BookstoreApiWrongParameterException;
@@ -29,6 +30,7 @@ public class BookService {
 
     //NEW BOOK SEVICE METHODS
 
+    @LogCount
     public List<Book> getBooksByAuthor(String authorName){
         return bookRepository.findBooksByAuthorFirstNameContaining(authorName);
     }
